@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatWidget Pro - Embed Example</title>
+</head>
+<body>
+    <h1>ChatWidget Pro Embed Example</h1>
+    <p>This page demonstrates how to embed the chat widget on your website.</p>
+    
+    <!-- 
+    ====================================
+    COPY THIS CODE TO YOUR WEBSITE
+    ====================================
+    -->
+    
+    <!-- ChatWidget Pro - Start -->
+    <script>
+      (function() {
+        // Configuration - Customize these values
+        window.ChatWidgetConfig = {
+          baseUrl: 'https://your-domain.com/chat-widget', // CHANGE THIS to your domain
+          position: 'bottom-right',
+          primaryColor: '#3B82F6',
+          makeWebhookUrl: 'https://hook.us1.make.com/7cnteymna5s1d42wvm4ncw6xm1q6cqho',
+          agentName: 'Support Agent',
+          agentAvatar: '' // Optional: Leave empty to use default
+        };
+        
+        // Create container for React app
+        var container = document.createElement('div');
+        container.id = 'chat-widget-root';
+        document.body.appendChild(container);
+        
+        // Load the widget files
+        var script = document.createElement('script');
+        script.type = 'module';
+        script.crossOrigin = true;
+        
+        // Dynamically find the correct JS file
+        fetch(window.ChatWidgetConfig.baseUrl + '/assets/')
+          .then(response => response.text())
+          .then(html => {
+            var match = html.match(/index-[a-zA-Z0-9]+\.js/);
+            if (match) {
+              script.src = window.ChatWidgetConfig.baseUrl + '/assets/' + match[0];
+              document.head.appendChild(script);
+            }
+          });
+        
+        // Load styles - dynamically find the correct CSS file
+        fetch(window.ChatWidgetConfig.baseUrl + '/assets/')
+          .then(response => response.text())
+          .then(html => {
+            var match = html.match(/index-[a-zA-Z0-9]+\.css/);
+            if (match) {
+              var styles = document.createElement('link');
+              styles.rel = 'stylesheet';
+              styles.crossOrigin = true;
+              styles.href = window.ChatWidgetConfig.baseUrl + '/assets/' + match[0];
+              document.head.appendChild(styles);
+            }
+          });
+      })();
+    </script>
+    <!-- ChatWidget Pro - End -->
+    
+    <hr>
+    <h2>Installation Notes:</h2>
+    <ol>
+        <li>Replace <code>https://your-domain.com/chat-widget</code> with your actual domain</li>
+        <li>Update the <code>makeWebhookUrl</code> with your Make.com webhook URL</li>
+        <li>Customize the agent name and avatar as needed</li>
+        <li>Choose your preferred position and color</li>
+    </ol>
+</body>
+</html>
